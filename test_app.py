@@ -1,9 +1,11 @@
-from app import add, greet
+from app import app
 
 
-def test_add():
-    assert add(2, 3) == 5
+def test_home():
+    app.testing = True
+    client = app.test_client()
 
+    response = client.get("/")
 
-def test_greet():
-    assert greet("Priyanshu") == "Hello, Priyanshu!"
+    assert response.status_code == 200
+    assert b"Hello Priyanshu" in response.data
